@@ -24,7 +24,6 @@ def create_project_structure(project_name: str = "src"):
         f"{project_name}/cloud_storage/__init__.py",
         f"{project_name}/cloud_storage/aws_storage.py",
         f"{project_name}/data_access/__init__.py",
-        f"{project_name}/data_access/proj1_data.py",
         f"{project_name}/constants/__init__.py",
         f"{project_name}/entity/__init__.py",
         f"{project_name}/entity/config_entity.py",
