@@ -4,7 +4,7 @@ import numpy as np
 from typing import Optional
 
 from src.configuration.mongo_db_connection import MongoDBClient
-from src.constants import DATABASE_NAME
+from src.constants import DATABASE_NAME, COLLECTION_NAME
 from src.exception import CustomException
 from src.logger import logging
 
@@ -59,7 +59,7 @@ class VehicleDB:
                 else self.mongo_client.get_database(database_name)
             )
 
-            collection = db[collection_name]
+            collection = db[COLLECTION_NAME]
             logging.info(f"Fetching data from MongoDB collection: '{collection_name}'")
 
             # Convert documents to DataFrame

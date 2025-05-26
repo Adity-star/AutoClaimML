@@ -5,8 +5,16 @@ from src.logger import logging
 from src.exception import CustomException
 import sys
 
-try:
-     a = 1+'Z'
-except Exception as e:
-     logging.info(e)
-     raise CustomException(e, sys) from e
+from src.exception import CustomException
+import traceback
+import sys
+
+def test_traceback():
+    try:
+        1 / 0
+    except Exception as e:
+        print("traceback.extract_tb:", traceback.extract_tb(sys.exc_info()[2]))
+        print("traceback.format_exc:", traceback.format_exc())
+
+test_traceback()
+
