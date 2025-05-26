@@ -2,7 +2,9 @@
 import os
 from src.constants import *
 from src.entity.config_entity import TrainingPipelineConfig, DataIngestionConfig
+from dotenv import load_dotenv
 
+load_dotenv()
 
 class ConfigurationManager:
     """
