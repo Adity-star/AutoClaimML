@@ -31,3 +31,8 @@ DATA_INGESTION_DIR_NAME = "data_ingestion"
 DATA_INGESTION_FEATURE_STORE_DIR = "feature_store"
 DATA_INGESTION_INGESTED_DIR = "ingested"
 DATA_INGESTION_TRAIN_TEST_SPLIT_RATIO = 0.25
+
+
+# Data Validation Stage
+DATA_VALIDATION_DIR_NAME: str = "data_validation"
+DATA_VALIDATION_REPORT_FILE_NAME: str = "report.yaml"
