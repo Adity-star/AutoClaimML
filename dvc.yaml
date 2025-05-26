@@ -10,8 +10,8 @@ stages:
         - src/data_access/vehicle_db.py
         - src/configuration/mongo_db_connection.py
       outs:
-        - artifacts/data_ingestion/ingested/train.csv
-        - artifact/data_ingestion/ingested/test.csv
+        - artifacts/data_ingestion/ingested/
+        - artifacts/data_ingestion/feature_store/
 
    data_validation:
       cmd: Python main.py
@@ -22,4 +22,7 @@ stages:
         - src/entity/config_entity.py
         - src/entity/artifact_entity.py
       outs:
-        - artifact\data_validation\report.yaml
+        - artifacts/data_validation/
+
+
+        
