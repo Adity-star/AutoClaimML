@@ -83,8 +83,8 @@ class DataValidation:
             logging.info("🔍 Starting data validation...")
 
             # Load data
-            train_df = self.read_data(self.data_ingestion_artifact.training_file_path)
-            test_df = self.read_data(self.data_ingestion_artifact.testing_file_path)
+            train_df = self.read_data(self.data_ingestion_artifact.trained_file_path)
+            test_df = self.read_data(self.data_ingestion_artifact.test_file_path)
 
             # Validate train and test column count
             if not self.validate_column_count(train_df):
@@ -104,12 +104,12 @@ class DataValidation:
             data_validation_artifact = DataValidationArtifact(
                 validation_status=validation_status,
                 message=validation_error_msg.strip(),
-                validation_report_file_path=self.data_validation_config.validation_report_file_path
+                report_file_path=self.data_validation_config.report_file_path
             )
 
             # Save validation report
-            os.makedirs(os.path.dirname(self.data_validation_config.validation_report_file_path), exist_ok=True)
-            with open(self.data_validation_config.validation_report_file_path, "w") as f:
+            os.makedirs(os.path.dirname(self.data_validation_config.report_file_path), exist_ok=True)
+            with open(self.data_validation_config.report_file_path, "w") as f:
                 json.dump({
                     "validation_status": validation_status,
                     "message": validation_error_msg.strip()

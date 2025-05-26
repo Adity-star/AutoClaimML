@@ -4,6 +4,8 @@ from src.constants import *
 from src.entity.config_entity import (TrainingPipelineConfig,
                                        DataIngestionConfig,
                                        DataValidationConfig)
+
+from src.constants import SCHEMA_FILE_PATH
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -49,14 +51,15 @@ class ConfigurationManager:
             DATA_VALIDATION_DIR_NAME
         )
 
-        validation_report_file_path = os.path.join(
+        report_file_path = os.path.join(
             data_validation_dir,
             DATA_VALIDATION_REPORT_FILE_NAME
         )
 
         return DataValidationConfig(
             data_validation_dir=data_validation_dir,
-            validation_report_file_path=validation_report_file_path
+            report_file_path=report_file_path,
+            schema_file_path=SCHEMA_FILE_PATH
         )
 
 
