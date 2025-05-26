@@ -4,8 +4,6 @@ from src.constants import *
 from dataclasses import dataclass 
 from datetime import datetime 
 
-# Generate a timestamp for versioned artifacts
-TIMESTAMP: str = datetime.now().strftime("%m_%d_%Y_%H_%M_%S")
 
 @dataclass
 class TrainingPipelineConfig:
@@ -13,8 +11,8 @@ class TrainingPipelineConfig:
     Configuration for the overall ML pipeline.
     """
     pipeline_name: str = PIPELINE_NAME
-    artifact_dir: str = os.path.join(ARTIFACT_DIR, TIMESTAMP)
-    timestamp: str = TIMESTAMP
+    artifact_dir: str = os.path.join(ARTIFACT_DIR)
+    
 
 
 
