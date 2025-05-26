@@ -1,7 +1,9 @@
 # configuration.py
 import os
 from src.constants import *
-from src.entity.config_entity import TrainingPipelineConfig, DataIngestionConfig
+from src.entity.config_entity import (TrainingPipelineConfig,
+                                       DataIngestionConfig,
+                                       DataValidationConfig)
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -40,3 +42,24 @@ class ConfigurationManager:
             train_test_split_ratio=DATA_INGESTION_TRAIN_TEST_SPLIT_RATIO,
             collection_name=DATA_INGESTION_COLLECTION_NAME
         )
+    
+    def get_data_validation_config(self) -> DataValidationConfig:
+        data_validation_dir = os.path.join(
+            self.training_pipeline_config.artifact_dir,
+            DATA_VALIDATION_DIR_NAME
+        )
+
+        validation_report_file_path = os.path.join(
+            data_validation_dir,
+            DATA_VALIDATION_REPORT_FILE_NAME
+        )
+
+        return DataValidationConfig(
+            data_validation_dir=data_validation_dir,
+            validation_report_file_path=validation_report_file_path
+        )
+
+
+
+    
+
