@@ -12,7 +12,7 @@ MONGODB_URL_KEY = "MONGODB_URL"
 
 
 PIPELINE_NAME: str = ""
-ARTIFACT_DIR: str = "artifact"
+ARTIFACT_DIR: str = "artifacts"
 
 MODEL_FILE_NAME = "model.pkl"
 
@@ -36,3 +36,8 @@ DATA_INGESTION_TRAIN_TEST_SPLIT_RATIO = 0.25
 # Data Validation Stage
 DATA_VALIDATION_DIR_NAME: str = "data_validation"
 DATA_VALIDATION_REPORT_FILE_NAME: str = "report.yaml"
+
+# Data Transformation Stage
+DATA_TRANSFORMATION_DIR_NAME: str = "data_transformation"
+DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR: str = "transformed"
+DATA_TRANSFORMATION_TRANSFORMED_OBJECT_DIR: str = "transformed_object"

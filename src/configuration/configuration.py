@@ -3,7 +3,8 @@ import os
 from src.constants import *
 from src.entity.config_entity import (TrainingPipelineConfig,
                                        DataIngestionConfig,
-                                       DataValidationConfig)
+                                       DataValidationConfig,
+                                       DataTransformationConfig)
 
 from src.constants import SCHEMA_FILE_PATH
 from dotenv import load_dotenv
@@ -61,6 +62,48 @@ class ConfigurationManager:
             report_file_path=report_file_path,
             schema_file_path=SCHEMA_FILE_PATH
         )
+    
+    def get_data_transformation_config(self) -> DataTransformationConfig:
+        """
+        Creates and returns the DataTransformationConfig using the base pipeline config.
+        """
+        data_transformation_dir = os.path.join(
+            self.training_pipeline_config.artifact_dir,
+            DATA_TRANSFORMATION_DIR_NAME
+        )
+
+        transformed_data_dir = os.path.join(
+            data_transformation_dir,
+            DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR
+        )
+        transformed_object_dir = os.path.join(
+            data_transformation_dir,
+            DATA_TRANSFORMATION_TRANSFORMED_OBJECT_DIR
+        )
+
+        transformed_train_file_path = os.path.join(
+            transformed_data_dir,
+            TRAIN_FILE_NAME.replace("csv", "npy")
+        )
+
+        transformed_test_file_path = os.path.join(
+            transformed_data_dir,
+            TEST_FILE_NAME.replace("csv", "npy")
+        )
+
+        transformed_object_file_path = os.path.join(
+            transformed_object_dir,
+            PREPROCSSING_OBJECT_FILE_NAME
+        )
+
+        return DataTransformationConfig(
+            data_transformation_dir=data_transformation_dir,
+            transformed_train_file_path=transformed_train_file_path,
+            transformed_test_file_path=transformed_test_file_path,
+            transformed_object_file_path=transformed_object_file_path
+        )
+
+    
 
 
 
