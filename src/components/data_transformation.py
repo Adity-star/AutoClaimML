@@ -14,7 +14,7 @@ from src.entity.artifact_entity import (DataIngestionArtifact,
                                         DataTransformationArtifact)
 
 from src.exception import CustomException
-from src.logger import logging
+import logging
 from src.utils.main_utils import read_yaml_file, save_numpy_array_data,save_object
 
 

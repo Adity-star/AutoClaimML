@@ -7,21 +7,28 @@ from src.logger import logging
 from src.configuration.configuration import ConfigurationManager
 from src.components.data_ingestion import DataIngestion
 from src.components.data_validation import DataValidation
+from src.components.data_transformation import DataTransformation
 
-from src.entity.config_entity import DataIngestionConfig, DataValidationConfig
+from src.entity.config_entity import (DataIngestionConfig,
+                                       DataValidationConfig,
+                                       DataTransformationConfig)
 
 
 
-from src.entity.artifact_entity import DataIngestionArtifact, DataValidationArtifact
+from src.entity.artifact_entity import (DataIngestionArtifact,
+                                         DataValidationArtifact,
+                                         DataTransformationArtifact)
 
 class TrainingPipeline:
     def __init__(self):
         try:
             logging.info("Initializing ConfigurationManager in TrainingPipeline.")
             self.config = ConfigurationManager()
+
+            self.data_transformation_config = self.config.get_data_transformation_config()
         except Exception as e:
             raise CustomException(e, sys)
-
+    
     def start_data_ingestion(self) -> DataIngestionArtifact:
         """
         Starts the data ingestion process using the DataIngestion component.
@@ -63,4 +70,41 @@ class TrainingPipeline:
 
         except Exception as e:
             logging.error("Data validation failed in TrainingPipeline.")
+            raise CustomException(e, sys)
+        
+    def start_data_transformation(
+        self, 
+        data_ingestion_artifact: DataIngestionArtifact, 
+        data_validation_artifact: DataValidationArtifact
+    ) -> DataTransformationArtifact:
+        """
+        Starts the Data Transformation component of the pipeline.
+        """
+        try:
+            logging.info("Initializing Data Transformation component...")
+
+            data_transformation = DataTransformation(
+                data_ingestion_artifact=data_ingestion_artifact,
+                data_transformation_config=self.data_transformation_config,
+                data_validation_artifact=data_validation_artifact
+            )
+
+            data_transformation_artifact = data_transformation.initiate_data_transformation()
+            logging.info("Data Transformation completed and artifact generated.")
+            return data_transformation_artifact
+
+        except Exception as e:
+            logging.exception("Failed to execute data transformation in TrainPipeline.")
+            raise CustomException(f"Error in start_data_transformation: {e}", sys) from e
+        
+    def run_pipeline(self, ) -> None:
+        """
+        This method of TrainPipeline class is responsible for running complete pipeline
+        """
+        try:
+            data_ingestion_artifact = self.start_data_ingestion()
+            data_validation_artifact = self.start_data_validation(data_ingestion_artifact=data_ingestion_artifact)
+            data_transformation_artifact = self.start_data_transformation(
+                    data_ingestion_artifact=data_ingestion_artifact, data_validation_artifact=data_validation_artifact)   
+        except Exception as e:
             raise CustomException(e, sys)
