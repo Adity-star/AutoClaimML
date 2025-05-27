@@ -9,7 +9,7 @@ import yaml
 
 
 from src.exception import CustomException
-import src.logger as logging
+import logging
 
 
 def read_yaml_file(file_path: str) -> dict:
@@ -119,7 +119,7 @@ def save_object(file_path: str, obj: object) -> None:
         file_path (str): Path where the object should be saved.
         obj (object): The Python object to serialize.
     """
-    logging.info("🔧 Starting save_object...")
+    logging.info("Starting save_object...")
 
     try:
         # Ensure the directory exists
@@ -129,10 +129,10 @@ def save_object(file_path: str, obj: object) -> None:
         with open(file_path, "wb") as file_obj:
             dill.dump(obj, file_obj)
 
-        logging.info(f"✅ Object saved successfully at {file_path}")
+        logging.info(f"Object saved successfully at {file_path}")
 
     except Exception as e:
-        logging.error("❌ Failed to save object.")
+        logging.error("Failed to save object.")
         raise CustomException(e, sys)
 
 

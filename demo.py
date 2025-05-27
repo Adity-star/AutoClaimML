@@ -1,6 +1,6 @@
 # demo.py
 
-
+'''
 from src.logger import logging
 from src.exception import CustomException
 import sys
@@ -17,4 +17,12 @@ def test_traceback():
         print("traceback.format_exc:", traceback.format_exc())
 
 test_traceback()
+'''
+
+
+from src.pipeline.training_pipeline import TrainingPipeline
+
+pipline = TrainingPipeline()
+pipline.run_pipeline()
+
 
