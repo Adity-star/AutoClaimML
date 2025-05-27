@@ -1,0 +1,39 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python main.py
+    deps:
+    - path: src/components/data_ingestion.py
+      hash: md5
+      md5: b0829ce97e97793c063b4a94f8573a14
+      size: 4745
+    - path: src/configuration/configuration.py
+      hash: md5
+      md5: bd99485653fcc9c52cbf6db8eea1b986
+      size: 3721
+    - path: src/configuration/mongo_db_connection.py
+      hash: md5
+      md5: de9c64df0ac959eb197fff793ddc679a
+      size: 3095
+    - path: src/data_access/vehicle_db.py
+      hash: md5
+      md5: f7405e2b24807f068bd63e3139149710
+      size: 2466
+    - path: src/entity/artifact_entity.py
+      hash: md5
+      md5: bb67e7db26e12256b1189afc97574896
+      size: 444
+    - path: src/entity/config_entity.py
+      hash: md5
+      md5: 83fd6d9fe4e9645e9a05f9dcbd5df1a2
+      size: 827
+    - path: src/pipeline/training_pipeline.py
+      hash: md5
+      md5: 72c0b7253d86184908b0d8089300abc5
+      size: 2542
+    outs:
+    - path: artifacts/data_ingestion/
+      hash: md5
+      md5: df296c773f6a13a5f0e86294d4eb0e0d.dir
+      size: 43627076
+      nfiles: 3

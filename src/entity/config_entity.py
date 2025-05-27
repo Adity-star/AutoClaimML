@@ -28,4 +28,12 @@ class DataValidationConfig:
     data_validation_dir: str
     report_file_path: str
     schema_file_path: str
+
+@dataclass
+class DataTransformationConfig:
+
+    data_transformation_dir: str
+    transformed_train_file_path: str
+    transformed_test_file_path: str
+    transformed_object_file_path: str
  

@@ -80,7 +80,7 @@ class DataValidation:
         try:
             validation_error_msg = ""
 
-            logging.info("🔍 Starting data validation...")
+            logging.info("Starting data validation...")
 
             # Load data
             train_df = self.read_data(self.data_ingestion_artifact.trained_file_path)
@@ -115,7 +115,7 @@ class DataValidation:
                     "message": validation_error_msg.strip()
                 }, f, indent=4)
 
-            logging.info(f"✅ Data validation completed. Result: {validation_status}")
+            logging.info(f"Data validation completed. Result: {validation_status}")
             return data_validation_artifact
 
         except Exception as e:
