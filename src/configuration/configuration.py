@@ -4,7 +4,8 @@ from src.constants import *
 from src.entity.config_entity import (TrainingPipelineConfig,
                                        DataIngestionConfig,
                                        DataValidationConfig,
-                                       DataTransformationConfig)
+                                       DataTransformationConfig,
+                                       ModelTrainerConfig)
 
 from src.constants import SCHEMA_FILE_PATH
 from dotenv import load_dotenv
@@ -102,9 +103,27 @@ class ConfigurationManager:
             transformed_test_file_path=transformed_test_file_path,
             transformed_object_file_path=transformed_object_file_path
         )
+    def get_model_trainer_config(self) -> ModelTrainerConfig:
+        """
+        Creates and returns the ModelTrainerConfig using simplified constants.
+        """
+        model_trainer_dir = os.path.join(
+            self.training_pipeline_config.artifact_dir,
+            MODEL_TRAINER_DIR_NAME
+        )
 
-    
+        trained_model_file_path = os.path.join(
+            model_trainer_dir,
+            MODEL_TRAINER_TRAINED_MODEL_DIR,
+            MODEL_TRAINER_TRAINED_MODEL_NAME
+        )
 
+        return ModelTrainerConfig(
+            model_trainer_dir=model_trainer_dir,
+            trained_model_file_path=trained_model_file_path,
+            expected_accuracy=MODEL_TRAINER_EXPECTED_SCORE,
+            model_config_file_path=MODEL_TRAINER_MODEL_CONFIG_FILE_PATH
+        )
 
 
     
