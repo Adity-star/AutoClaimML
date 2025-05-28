@@ -8,16 +8,19 @@ from src.configuration.configuration import ConfigurationManager
 from src.components.data_ingestion import DataIngestion
 from src.components.data_validation import DataValidation
 from src.components.data_transformation import DataTransformation
+from src.components.model_trainer import ModelTrainer
 
 from src.entity.config_entity import (DataIngestionConfig,
                                        DataValidationConfig,
-                                       DataTransformationConfig)
+                                       DataTransformationConfig,
+                                       ModelTrainerConfig)
 
 
 
 from src.entity.artifact_entity import (DataIngestionArtifact,
                                          DataValidationArtifact,
-                                         DataTransformationArtifact)
+                                         DataTransformationArtifact,
+                                         ModelTrainerArtifact)
 
 class TrainingPipeline:
     def __init__(self):
@@ -26,6 +29,7 @@ class TrainingPipeline:
             self.config = ConfigurationManager()
 
             self.data_transformation_config = self.config.get_data_transformation_config()
+            self.model_trainer_config = self.config.get_model_trainer_config()
         except Exception as e:
             raise CustomException(e, sys)
     
@@ -97,6 +101,21 @@ class TrainingPipeline:
             logging.exception("Failed to execute data transformation in TrainPipeline.")
             raise CustomException(f"Error in start_data_transformation: {e}", sys) from e
         
+    def start_model_trainer(self, data_transformation_artifact: DataTransformationArtifact) -> ModelTrainerArtifact:
+        """
+        This method of TrainPipeline class is responsible for starting model training
+        """
+        try:
+            model_trainer = ModelTrainer(
+                data_transformation_artifact=data_transformation_artifact,
+                model_trainer_config=self.model_trainer_config
+            )
+            model_trainer_artifact = model_trainer.initiate_model_trainer()
+            return model_trainer_artifact
+
+        except Exception as e:
+            raise CustomException(e, sys) from e
+        
     def run_pipeline(self, ) -> None:
         """
         This method of TrainPipeline class is responsible for running complete pipeline
@@ -105,6 +124,7 @@ class TrainingPipeline:
             data_ingestion_artifact = self.start_data_ingestion()
             data_validation_artifact = self.start_data_validation(data_ingestion_artifact=data_ingestion_artifact)
             data_transformation_artifact = self.start_data_transformation(
-                    data_ingestion_artifact=data_ingestion_artifact, data_validation_artifact=data_validation_artifact)   
+                    data_ingestion_artifact=data_ingestion_artifact, data_validation_artifact=data_validation_artifact) 
+            model_trainer_artifact = self.start_model_trainer(data_transformation_artifact=data_transformation_artifact)  
         except Exception as e:
             raise CustomException(e, sys)

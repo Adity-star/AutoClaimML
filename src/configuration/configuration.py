@@ -1,5 +1,6 @@
 # configuration.py
 import os
+import yaml
 from src.constants import *
 from src.entity.config_entity import (TrainingPipelineConfig,
                                        DataIngestionConfig,
@@ -103,9 +104,10 @@ class ConfigurationManager:
             transformed_test_file_path=transformed_test_file_path,
             transformed_object_file_path=transformed_object_file_path
         )
+
     def get_model_trainer_config(self) -> ModelTrainerConfig:
         """
-        Creates and returns the ModelTrainerConfig using simplified constants.
+        Creates and returns the ModelTrainerConfig using the base pipeline config and model parameters from YAML.
         """
         model_trainer_dir = os.path.join(
             self.training_pipeline_config.artifact_dir,
@@ -118,12 +120,28 @@ class ConfigurationManager:
             MODEL_TRAINER_TRAINED_MODEL_NAME
         )
 
-        return ModelTrainerConfig(
+        # Load model parameters from YAML file
+        with open(MODEL_TRAINER_MODEL_CONFIG_FILE_PATH, 'r') as f:
+            model_config = yaml.safe_load(f)
+            model_params = model_config.get('model_params', {})
+
+        # Create ModelTrainerConfig with parameters from YAML
+        config = ModelTrainerConfig(
             model_trainer_dir=model_trainer_dir,
             trained_model_file_path=trained_model_file_path,
             expected_accuracy=MODEL_TRAINER_EXPECTED_SCORE,
             model_config_file_path=MODEL_TRAINER_MODEL_CONFIG_FILE_PATH
         )
+
+        # Add model parameters as attributes
+        config.n_estimators = model_params.get('n_estimators', 100)
+        config.min_samples_split = model_params.get('min_samples_split', 2)
+        config.min_samples_leaf = model_params.get('min_samples_leaf', 1)
+        config.max_depth = model_params.get('max_depth', None)
+        config.criterion = model_params.get('criterion', 'gini')
+        config.random_state = model_params.get('random_state', 42)
+
+        return config
 
 
     
