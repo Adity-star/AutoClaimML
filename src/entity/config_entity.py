@@ -1,5 +1,6 @@
 # config_entity.py
 import os
+import yaml
 from src.constants import *
 from dataclasses import dataclass 
 from datetime import datetime 
@@ -43,6 +44,8 @@ class ModelTrainerConfig:
     trained_model_file_path: str
     expected_accuracy: float
     model_config_file_path: str
+
+    
     
     
  
