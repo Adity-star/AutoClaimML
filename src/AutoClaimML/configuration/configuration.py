@@ -7,7 +7,8 @@ from AutoClaimML.entity.config_entity import (TrainingPipelineConfig,
                                        DataValidationConfig,
                                        DataTransformationConfig,
                                        ModelTrainerConfig,
-                                       ModelEvaluationConfig)
+                                       ModelEvaluationConfig,
+                                       ModelPusherConfig)
 
 from AutoClaimML.constants import SCHEMA_FILE_PATH
 from dotenv import load_dotenv
@@ -156,6 +157,19 @@ class ConfigurationManager:
             )
         except Exception as e:
             raise Exception(f"Error in get_model_evaluation_config: {e}")
+        
+    def get_model_pusher_config(self) -> ModelPusherConfig:
+        """
+        Creates and returns the ModelPusherConfig using constants.
+        """
+        try:
+            return ModelPusherConfig(
+                bucket_name=MODEL_BUCKET_NAME,
+                s3_model_key_path=MODEL_FILE_NAME
+            )
+        except Exception as e:
+            raise Exception(f"Error in get_model_pusher_config: {e}")
+
 
 
 
