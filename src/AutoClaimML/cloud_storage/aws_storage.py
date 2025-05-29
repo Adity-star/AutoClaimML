@@ -66,7 +66,7 @@ class SimpleStorageService:
         except Exception as e:
             raise CustomException(e, sys)
         
-    def get_file_object(self, filename: str, bucket_name: str) -> Union[List[ObjectSummary], ObjectSummary]:
+    def get_file_object(self, filename: str, bucket_name: str) -> Union[List[object], object]:
         """
         Retrieves one or multiple S3 objects matching a prefix.
 

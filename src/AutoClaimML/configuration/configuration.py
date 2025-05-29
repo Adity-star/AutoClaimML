@@ -6,7 +6,8 @@ from AutoClaimML.entity.config_entity import (TrainingPipelineConfig,
                                        DataIngestionConfig,
                                        DataValidationConfig,
                                        DataTransformationConfig,
-                                       ModelTrainerConfig)
+                                       ModelTrainerConfig,
+                                       ModelEvaluationConfig)
 
 from AutoClaimML.constants import SCHEMA_FILE_PATH
 from dotenv import load_dotenv
@@ -142,6 +143,20 @@ class ConfigurationManager:
         config.random_state = model_params.get('random_state', 42)
 
         return config
+    
+    def get_model_evaluation_config(self) -> ModelEvaluationConfig:
+        """
+        Creates and returns the ModelEvaluationConfig using constants.
+        """
+        try:
+            return ModelEvaluationConfig(
+                changed_threshold_score=MODEL_EVALUATION_CHANGED_THRESHOLD_SCORE,
+                bucket_name=MODEL_BUCKET_NAME,
+                s3_model_key_path=MODEL_FILE_NAME
+            )
+        except Exception as e:
+            raise Exception(f"Error in get_model_evaluation_config: {e}")
+
 
 
     
