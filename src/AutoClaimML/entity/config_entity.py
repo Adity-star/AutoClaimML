@@ -1,7 +1,7 @@
 # config_entity.py
 import os
 import yaml
-from src.constants import *
+from AutoClaimML.constants import *
 from dataclasses import dataclass 
 from datetime import datetime 
 

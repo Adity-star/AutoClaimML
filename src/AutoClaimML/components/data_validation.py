@@ -9,14 +9,14 @@ import numpy as np
 from pandas import DataFrame
 
 
-from src.exception import CustomException
-from src.logger import logging
-from src.utils.main_utils import read_yaml_file
-from src.entity.config_entity import DataValidationConfig
-from src.entity.artifact_entity import (DataIngestionArtifact,
+from AutoClaimML.exception import CustomException
+from AutoClaimML.logger import logging
+from AutoClaimML.utils.main_utils import read_yaml_file
+from AutoClaimML.entity.config_entity import DataValidationConfig
+from AutoClaimML.entity.artifact_entity import (DataIngestionArtifact,
                                         DataValidationArtifact)
 
-from src.constants import SCHEMA_FILE_PATH
+from AutoClaimML.constants import SCHEMA_FILE_PATH
 
 
 class DataValidation:

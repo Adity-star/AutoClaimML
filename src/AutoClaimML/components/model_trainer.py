@@ -6,13 +6,13 @@ import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, f1_score,precision_score, recall_score
 
-from src.exception import CustomException
-from src.logger import logging
-from src.utils.main_utils import load_numpy_array_data, load_object, save_object
-from src.entity.config_entity import ModelTrainerConfig
-from src.entity.artifact_entity import DataTransformationArtifact, ModelTrainerArtifact,ClassificationMetricArtifact
+from AutoClaimML.exception import CustomException
+from AutoClaimML.logger import logging
+from AutoClaimML.utils.main_utils import load_numpy_array_data, load_object, save_object
+from AutoClaimML.entity.config_entity import ModelTrainerConfig
+from AutoClaimML.entity.artifact_entity import DataTransformationArtifact, ModelTrainerArtifact,ClassificationMetricArtifact
 
-from src.entity.estimator import MyModel
+from AutoClaimML.entity.estimator import MyModel
 import mlflow
 
 class ModelTrainer:

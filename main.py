@@ -1,7 +1,7 @@
 import sys
-from src.pipeline.training_pipeline import TrainingPipeline
-from src.exception import CustomException
-from src.logger import logging
+from AutoClaimML.pipeline.training_pipeline import TrainingPipeline
+from AutoClaimML.exception import CustomException
+from AutoClaimML.logger import logging
 
 
 def run_pipeline():

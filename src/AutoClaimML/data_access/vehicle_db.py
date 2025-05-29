@@ -3,10 +3,10 @@ import pandas as pd
 import numpy as np
 from typing import Optional
 
-from src.configuration.mongo_db_connection import MongoDBClient
-from src.constants import DATABASE_NAME, COLLECTION_NAME
-from src.exception import CustomException
-from src.logger import logging
+from AutoClaimML.configuration.mongo_db_connection import MongoDBClient
+from AutoClaimML.constants import DATABASE_NAME, COLLECTION_NAME
+from AutoClaimML.exception import CustomException
+from AutoClaimML.logger import logging
 
 
 class VehicleDB:

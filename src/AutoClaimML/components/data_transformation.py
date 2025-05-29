@@ -7,15 +7,15 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from sklearn.compose import ColumnTransformer
 
-from src.constants import TARGET_COLUMN, SCHEMA_FILE_PATH, CURRENT_YEAR
-from src.entity.config_entity import DataTransformationConfig
-from src.entity.artifact_entity import (DataIngestionArtifact,
+from AutoClaimML.constants import TARGET_COLUMN, SCHEMA_FILE_PATH, CURRENT_YEAR
+from AutoClaimML.entity.config_entity import DataTransformationConfig
+from AutoClaimML.entity.artifact_entity import (DataIngestionArtifact,
                                         DataValidationArtifact,
                                         DataTransformationArtifact)
 
-from src.exception import CustomException
+from AutoClaimML.exception import CustomException
 import logging
-from src.utils.main_utils import read_yaml_file, save_numpy_array_data,save_object
+from AutoClaimML.utils.main_utils import read_yaml_file, save_numpy_array_data,save_object
 
 
 

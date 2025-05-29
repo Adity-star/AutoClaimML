@@ -8,7 +8,7 @@ import dill
 import yaml 
 
 
-from src.exception import CustomException
+from AutoClaimML.exception import CustomException
 import logging
 
 
