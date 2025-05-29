@@ -9,12 +9,12 @@ from pandas import DataFrame
 from sklearn.model_selection import train_test_split
 
 
-from src.logger import logging
-from src.data_access.vehicle_db import VehicleDB
-from src.entity.config_entity import DataIngestionConfig
-from src.entity.artifact_entity import DataIngestionArtifact
-from src.exception import CustomException
-from src.configuration.configuration import ConfigurationManager
+from AutoClaimML.logger import logging
+from AutoClaimML.data_access.vehicle_db import VehicleDB
+from AutoClaimML.entity.config_entity import DataIngestionConfig
+from AutoClaimML.entity.artifact_entity import DataIngestionArtifact
+from AutoClaimML.exception import CustomException
+from AutoClaimML.configuration.configuration import ConfigurationManager
 
 
 class DataIngestion:

@@ -20,7 +20,7 @@ test_traceback()
 '''
 
 
-from src.pipeline.training_pipeline import TrainingPipeline
+from AutoClaimML.pipeline.training_pipeline import TrainingPipeline
 
 pipline = TrainingPipeline()
 pipline.run_pipeline()

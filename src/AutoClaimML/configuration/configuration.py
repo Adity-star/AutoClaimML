@@ -1,14 +1,14 @@
 # configuration.py
 import os
 import yaml
-from src.constants import *
-from src.entity.config_entity import (TrainingPipelineConfig,
+from AutoClaimML.constants import *
+from AutoClaimML.entity.config_entity import (TrainingPipelineConfig,
                                        DataIngestionConfig,
                                        DataValidationConfig,
                                        DataTransformationConfig,
                                        ModelTrainerConfig)
 
-from src.constants import SCHEMA_FILE_PATH
+from AutoClaimML.constants import SCHEMA_FILE_PATH
 from dotenv import load_dotenv
 
 load_dotenv()

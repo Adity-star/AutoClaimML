@@ -1,23 +1,23 @@
 # training_pipeline.py
 
 import sys
-from src.exception import CustomException
-from src.logger import logging 
+from AutoClaimML.exception import CustomException
+from AutoClaimML.logger import logging 
 
-from src.configuration.configuration import ConfigurationManager
-from src.components.data_ingestion import DataIngestion
-from src.components.data_validation import DataValidation
-from src.components.data_transformation import DataTransformation
-from src.components.model_trainer import ModelTrainer
+from AutoClaimML.configuration.configuration import ConfigurationManager
+from AutoClaimML.components.data_ingestion import DataIngestion
+from AutoClaimML.components.data_validation import DataValidation
+from AutoClaimML.components.data_transformation import DataTransformation
+from AutoClaimML.components.model_trainer import ModelTrainer
 
-from src.entity.config_entity import (DataIngestionConfig,
+from AutoClaimML.entity.config_entity import (DataIngestionConfig,
                                        DataValidationConfig,
                                        DataTransformationConfig,
                                        ModelTrainerConfig)
 
 
 
-from src.entity.artifact_entity import (DataIngestionArtifact,
+from AutoClaimML.entity.artifact_entity import (DataIngestionArtifact,
                                          DataValidationArtifact,
                                          DataTransformationArtifact,
                                          ModelTrainerArtifact)

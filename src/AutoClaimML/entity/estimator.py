@@ -5,8 +5,8 @@ import pandas as pd
 from pandas import DataFrame
 from sklearn.pipeline import Pipeline
 
-from src.exception import CustomException
-from src.logger import logging
+from AutoClaimML.exception import CustomException
+from AutoClaimML.logger import logging
 
 
 # -------------------------

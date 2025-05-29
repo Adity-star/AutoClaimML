@@ -5,9 +5,9 @@ import sys
 import pymongo
 import certifi
 
-from src.exception import CustomException
-from src.logger import logging
-from src.constants import DATABASE_NAME, MONGODB_URL_KEY
+from AutoClaimML.exception import CustomException
+from AutoClaimML.logger import logging
+from AutoClaimML.constants import DATABASE_NAME, MONGODB_URL_KEY
 
 # Load the certificate authority file to avoid timeout errors when connecting to MongoDB
 ca = certifi.where()
