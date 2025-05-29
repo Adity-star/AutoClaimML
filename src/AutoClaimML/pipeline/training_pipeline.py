@@ -10,6 +10,7 @@ from AutoClaimML.components.data_validation import DataValidation
 from AutoClaimML.components.data_transformation import DataTransformation
 from AutoClaimML.components.model_trainer import ModelTrainer
 from AutoClaimML.components.model_evaluation import ModelEvaluation
+from AutoClaimML.components.model_pusher import ModelPusher
 
 from AutoClaimML.entity.config_entity import (DataIngestionConfig,
                                        DataValidationConfig,
@@ -23,7 +24,8 @@ from AutoClaimML.entity.artifact_entity import (DataIngestionArtifact,
                                          DataValidationArtifact,
                                          DataTransformationArtifact,
                                          ModelTrainerArtifact,
-                                         ModelEvaluationArtifact)
+                                         ModelEvaluationArtifact,
+                                         ModelPusherArtifact)
 
 class TrainingPipeline:
     def __init__(self):
@@ -34,6 +36,8 @@ class TrainingPipeline:
             self.data_transformation_config = self.config.get_data_transformation_config()
             self.model_trainer_config = self.config.get_model_trainer_config()
             self.model_evaluation_config = self.config.get_model_evaluation_config()
+            self.model_pusher_config = self.config.get_model_pusher_config()
+            
         except Exception as e:
             raise CustomException(e, sys)
     
@@ -145,6 +149,25 @@ class TrainingPipeline:
         except Exception as e:
             logging.error("Error during model evaluation step.", exc_info=True)
             raise CustomException(e, sys) from e
+    
+    def start_model_pusher(self, model_evaluation_artifact: ModelEvaluationArtifact) -> ModelPusherArtifact:
+        """
+        Initiates the model pushing process by using the ModelPusher component.
+        """
+        try:
+            # Initialize the ModelPusher with evaluation results and configuration
+            model_pusher = ModelPusher(
+                model_evaluation_artifact=model_evaluation_artifact,
+                model_pusher_config=self.model_pusher_config
+            )
+
+            # Trigger the model pushing process
+            model_pusher_artifact = model_pusher.initiate_model_pusher()
+
+            return model_pusher_artifact
+
+        except Exception as e:
+             raise CustomException(e, sys) from e
         
     def run_pipeline(self) -> None:
         """
@@ -190,7 +213,9 @@ class TrainingPipeline:
             if not model_evaluation_artifact.is_model_accepted:
                 logging.warning("Trained model is not better than the existing model. Pipeline stopped.")
                 return
-
+            # step &: Model Pusher
+            model_pusher_artifacts = self.start_model_pusher(model_evaluation_artifact=model_evaluation_artifact)
+            logging.info(f"Model successfully pushed: {model_pusher_artifacts}")
            
             logging.info("Pipeline completed successfully.")
 
