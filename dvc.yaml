@@ -14,5 +14,20 @@ stages:
       - artifacts/data_ingestion/
     outs:
       - artifacts/data_validation/
+  data_transformation:
+    cmd: python main.py --stage data_transformation
+    deps:
+      - src/AutoClaimML/components/data_transformation.py
+      - artifacts/data_ingestion/
+      - artifacts/data_validation/
+    outs:
+      - artifacts/data_transformation/
+  model_trainer:
+    cmd: python main.py --stage model_trainer
+    deps:
+      - src/AutoClaimML/components/model_trainer.py
+      - artifacts/data_transformation/
+    outs:
+      - artifacts/model_trainer/
  
 
