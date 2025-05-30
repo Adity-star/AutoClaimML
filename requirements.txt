@@ -21,4 +21,4 @@ jinja2
 imblearn
 dvc
 mlflow
--e .
+

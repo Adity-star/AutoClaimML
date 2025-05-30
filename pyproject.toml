@@ -1,13 +1,18 @@
 # pyproject.toml
 
 [project]
-name = "src"
+name = "AutoClaimML"
 version = "0.0.1"
 description = "An MLOps project for productionizing models"
 authors = [{name = "Aditya AK", email = "aakuskar.980@gmail.com"}]
+readme = "README.md"
+requires-python = ">=3.8"
 
 [tool.setuptools]
-packages = {find = {}}
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [tool.setuptools.dynamic]
 dependencies = {file = "requirements.txt"}
