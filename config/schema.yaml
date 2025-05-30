@@ -29,7 +29,7 @@ categorical_columns:
   - Vehicle_Age
   - Vehicle_Damage
 
-drop_columns: _id
+drop_columns: id
 
 # for data transformation
 num_features:

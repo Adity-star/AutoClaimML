@@ -96,11 +96,16 @@ class ModelEvaluation:
             test_df = pd.read_csv(self.data_ingestion_artifact.test_file_path)
             logging.info("Test data shape: %s", test_df.shape)
             
+            # Store id column if it exists
+            test_id = test_df['id'].copy() if 'id' in test_df.columns else None
+            
             X_test, y_test = test_df.drop(TARGET_COLUMN, axis=1), test_df[TARGET_COLUMN]
             logging.info("X_test shape: %s, y_test shape: %s", X_test.shape, y_test.shape)
             
-            X_test = self._preprocess_test_data(X_test)
-            logging.info("Preprocessed X_test shape: %s", X_test.shape)
+            # Create a copy for preprocessing
+            X_test_processed = X_test.copy()
+            X_test_processed = self._preprocess_test_data(X_test_processed)
+            logging.info("Preprocessed X_test shape: %s", X_test_processed.shape)
 
             # Load trained model and get f1 score
             logging.info("Loading trained model from: %s", self.model_trainer_artifact.trained_model_file_path)
@@ -113,7 +118,7 @@ class ModelEvaluation:
             best_model_f1_score = None
             if best_model_estimator:
                 logging.info("Evaluating current production model from S3")
-                y_pred_best = best_model_estimator.predict(X_test)
+                y_pred_best = best_model_estimator.predict(X_test_processed)
                 logging.info("Best model predictions shape: %s", y_pred_best.shape if y_pred_best is not None else None)
                 best_model_f1_score = f1_score(y_test, y_pred_best)
                 logging.info(f"F1 Score - Production model: {best_model_f1_score}")

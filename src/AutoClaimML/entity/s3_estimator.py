@@ -3,6 +3,7 @@
 import sys
 from pandas import DataFrame
 import boto3
+import pandas as pd
 
 from AutoClaimML.entity.estimator import MyModel
 from AutoClaimML.cloud_storage.aws_storage import SimpleStorageService
@@ -89,6 +90,24 @@ class Proj1Estimator:
         try:
             if self.loaded_model is None:
                 self.load_model()
-            return self.loaded_model.predict(dataframe)
+
+            # Create a copy of the dataframe to avoid modifying the original
+            df = dataframe.copy()
+
+            # Store id column if it exists
+            id_column = None
+            if 'id' in df.columns:
+                id_column = df['id'].copy()
+                df = df.drop('id', axis=1)
+
+            # Make predictions
+            predictions = self.loaded_model.predict(df)
+
+            # If we had an id column, ensure predictions are indexed by it
+            if id_column is not None and isinstance(predictions, pd.Series):
+                predictions.index = id_column
+
+            return predictions
+
         except Exception as e:
             raise CustomException(e, sys)
