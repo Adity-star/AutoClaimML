@@ -93,7 +93,8 @@ class DataTransformation:
                     ("standard_scaler", numeric_transformer, num_features),
                     ("minmax_scaler", minmax_transformer, mm_columns),
                 ],
-                remainder='passthrough'  # Other columns stay unchanged
+                remainder='passthrough',  # Other columns stay unchanged
+                verbose_feature_names_out=False  # Prevents transformer name prefixes
             )
 
             # Build final pipeline
@@ -215,6 +216,10 @@ class DataTransformation:
             train_df = self.read_data(self.data_ingestion_artifact.trained_file_path)
             test_df = self.read_data(self.data_ingestion_artifact.test_file_path)
             logging.info("Train and test datasets loaded successfully.")
+
+            # Store id columns if they exist
+            train_id = train_df['id'] if 'id' in train_df.columns else None
+            test_id = test_df['id'] if 'id' in test_df.columns else None
 
             # Separate input and target features
             input_feature_train_df = train_df.drop(columns=[TARGET_COLUMN])

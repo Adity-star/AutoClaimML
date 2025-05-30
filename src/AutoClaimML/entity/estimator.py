@@ -55,15 +55,27 @@ class MyModel:
         try:
             logging.info("Starting prediction process.")
 
+            # Store id column if it exists
+            id_column = None
+            if 'id' in dataframe.columns:
+                id_column = dataframe['id'].copy()
+                dataframe = dataframe.drop('id', axis=1)
+
             # Transform input using the saved preprocessing pipeline
             logging.info("Applying preprocessing transformations.")
             transformed_features = self.preprocessing_object.transform(dataframe)
               
-             # Predict using the trained model
+            # Predict using the trained model
             logging.info("Making predictions with the trained model.")
             predictions = self.trained_model_object.predict(transformed_features)
 
-            return pd.Series(predictions)
+            # Create prediction series with id if available
+            if id_column is not None:
+                predictions = pd.Series(predictions, index=id_column)
+            else:
+                predictions = pd.Series(predictions)
+
+            return predictions
 
         except Exception as e:
             logging.error("Error occurred in predict method", exc_info=True)
