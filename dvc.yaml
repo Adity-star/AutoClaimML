@@ -1,23 +1,18 @@
 stages:
   data_ingestion:
-    cmd: python main.py
+    cmd: python main.py --stage data_ingestion
     deps:
-    - src/pipeline/training_pipeline.py
-    - src/components/data_ingestion.py
-    - src/configuration/configuration.py
-    - src/entity/config_entity.py
-    - src/entity/artifact_entity.py
-    - src/data_access/vehicle_db.py
-    - src/configuration/mongo_db_connection.py
+      - src/AutoClaimML/components/data_ingestion.py
+      - src/AutoClaimML/pipeline/training_pipeline.py
     outs:
-    - artifacts/data_ingestion/
+      - artifacts/data_ingestion/
+
   data_validation:
-    cmd: python main.py
+    cmd: python main.py --stage data_validation
     deps:
-    - src/pipeline/training_pipeline.py
-    - src/components/data_validation.py
-    - src/configuration/configuration.py
-    - src/entity/config_entity.py
-    - src/entity/artifact_entity.py
+      - src/AutoClaimML/components/data_validation.py
+      - artifacts/data_ingestion/
     outs:
-    - artifacts/data_validation/
+      - artifacts/data_validation/
+ 
+
