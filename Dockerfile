@@ -33,4 +33,4 @@ COPY . .
 EXPOSE 5000
 
 # Start FastAPI using Uvicorn (recommended for production)
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "5000"]
