@@ -3,58 +3,159 @@ stages:
   data_ingestion:
     cmd: python main.py --stage data_ingestion
     deps:
+    - path: main.py
+      hash: md5
+      md5: ab533e084de436a3b30866ff606f02dc
+      size: 8593
     - path: src/AutoClaimML/components/data_ingestion.py
       hash: md5
       md5: 7acf664b14fa1b99da9f789e66852a8c
       size: 4793
+    - path: src/AutoClaimML/configuration/configuration.py
+      hash: md5
+      md5: 47c0d478acbb81a94b28c471b568df20
+      size: 6457
     - path: src/AutoClaimML/pipeline/training_pipeline.py
       hash: md5
       md5: c54ea6af33884e68a10640bff67f3be5
       size: 9818
     outs:
-    - path: artifacts/data_ingestion/
+    - path: artifacts/data_ingestion/artifact.pkl
       hash: md5
-      md5: df296c773f6a13a5f0e86294d4eb0e0d.dir
-      size: 43627076
-      nfiles: 3
+      md5: 9251be82fbf4b5b58d891fe69dcb2894
+      size: 211
+    - path: artifacts/data_ingestion/feature_store/data.csv
+      hash: md5
+      md5: 3805e1331fd04c8b6bb9182e1cd33a18
+      size: 21813467
+    - path: artifacts/data_ingestion/ingested/test.csv
+      hash: md5
+      md5: 0f517917d53b950a3fdcae99cf433e41
+      size: 5453119
+    - path: artifacts/data_ingestion/ingested/train.csv
+      hash: md5
+      md5: 8ac0704b27b9544d83bcc41972a25383
+      size: 16360490
   data_validation:
     cmd: python main.py --stage data_validation
     deps:
-    - path: artifacts/data_ingestion/
+    - path: artifacts/data_ingestion/artifact.pkl
       hash: md5
-      md5: df296c773f6a13a5f0e86294d4eb0e0d.dir
-      size: 43627076
-      nfiles: 3
+      md5: 9251be82fbf4b5b58d891fe69dcb2894
+      size: 211
+    - path: main.py
+      hash: md5
+      md5: ab533e084de436a3b30866ff606f02dc
+      size: 8593
     - path: src/AutoClaimML/components/data_validation.py
       hash: md5
       md5: 43d436f891b997e19be8a1698dc284f2
       size: 4944
     outs:
-    - path: artifacts/data_validation/
+    - path: artifacts/data_validation/artifact.pkl
       hash: md5
-      md5: 4ba551774453953856cf8ab1f9f099bf.dir
+      md5: fb1434b457482b9fb2a806a9e94d7580
+      size: 177
+    - path: artifacts/data_validation/report.yaml
+      hash: md5
+      md5: 4ffbbec3da2537825b4652518849394e
       size: 55
-      nfiles: 1
   data_transformation:
     cmd: python main.py --stage data_transformation
     deps:
-    - path: artifacts/data_ingestion/
+    - path: artifacts/data_ingestion/artifact.pkl
       hash: md5
-      md5: df296c773f6a13a5f0e86294d4eb0e0d.dir
-      size: 43627076
-      nfiles: 3
-    - path: artifacts/data_validation/
+      md5: 9251be82fbf4b5b58d891fe69dcb2894
+      size: 211
+    - path: artifacts/data_validation/artifact.pkl
       hash: md5
-      md5: 4ba551774453953856cf8ab1f9f099bf.dir
-      size: 55
-      nfiles: 1
+      md5: fb1434b457482b9fb2a806a9e94d7580
+      size: 177
+    - path: main.py
+      hash: md5
+      md5: ab533e084de436a3b30866ff606f02dc
+      size: 8593
     - path: src/AutoClaimML/components/data_transformation.py
       hash: md5
       md5: dbb24740ed092b51c621df71aa6a29ce
       size: 11975
     outs:
-    - path: artifacts/data_transformation/
+    - path: artifacts/data_transformation/artifact.pkl
       hash: md5
-      md5: 83b4a98c6f1b979169c9c74911e0367e.dir
-      size: 48040158
-      nfiles: 3
+      md5: 94a5e41f4706f13ae37edb953cd87743
+      size: 354
+    - path: artifacts/data_transformation/transformed/test.npy
+      hash: md5
+      md5: 0613bcdade835e21d0e42ba79f8ac773
+      size: 12119552
+    - path: artifacts/data_transformation/transformed/train.npy
+      hash: md5
+      md5: 34093107471865239809135c76e657e5
+      size: 35918144
+    - path: artifacts/data_transformation/transformed_object/preprocessing.pkl
+      hash: md5
+      md5: 09e9875c9de1e6dbb6d42a42d416bea7
+      size: 2462
+  model_trainer:
+    cmd: python main.py --stage model_trainer
+    deps:
+    - path: artifacts/data_transformation/artifact.pkl
+      hash: md5
+      md5: 94a5e41f4706f13ae37edb953cd87743
+      size: 354
+    - path: main.py
+      hash: md5
+      md5: ab533e084de436a3b30866ff606f02dc
+      size: 8593
+    - path: src/AutoClaimML/components/model_trainer.py
+      hash: md5
+      md5: ebbc357cd8b4751eb837589273059fcd
+      size: 7943
+    outs:
+    - path: artifacts/model_trainer/artifact.pkl
+      hash: md5
+      md5: e45f3d9044a4107d0ddb737250db14d2
+      size: 290
+    - path: artifacts/model_trainer/trained_model/model.pkl
+      hash: md5
+      md5: 2eeb2fba703ab5c21cb9259acd4dc945
+      size: 8980155
+  model_evaluation:
+    cmd: python main.py --stage model_evaluation
+    deps:
+    - path: artifacts/data_ingestion/artifact.pkl
+      hash: md5
+      md5: 9251be82fbf4b5b58d891fe69dcb2894
+      size: 211
+    - path: artifacts/model_trainer/artifact.pkl
+      hash: md5
+      md5: e45f3d9044a4107d0ddb737250db14d2
+      size: 290
+    - path: main.py
+      hash: md5
+      md5: ab533e084de436a3b30866ff606f02dc
+      size: 8593
+    - path: src/AutoClaimML/components/model_evaluation.py
+      hash: md5
+      md5: 35c9415af8d04d589ea549937a61d6ee
+      size: 6827
+    outs:
+    - path: artifacts/model_evaluation/artifact.pkl
+      hash: md5
+      md5: c127a3a3f832f54a27125bd035b3352b
+      size: 233
+  model_pusher:
+    cmd: python main.py --stage model_pusher
+    deps:
+    - path: artifacts/model_evaluation/artifact.pkl
+      hash: md5
+      md5: c127a3a3f832f54a27125bd035b3352b
+      size: 233
+    - path: main.py
+      hash: md5
+      md5: ab533e084de436a3b30866ff606f02dc
+      size: 8593
+    - path: src/AutoClaimML/components/model_pusher.py
+      hash: md5
+      md5: 148982b1886fe1033962d7ea4603ed25
+      size: 2992
