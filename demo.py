@@ -20,15 +20,21 @@ test_traceback()
 '''
 
 
-#from AutoClaimML.pipeline.training_pipeline import TrainingPipeline
+from AutoClaimML.pipeline.training_pipeline import TrainingPipeline
 
-#pipline = TrainingPipeline()
-#pipline.run_pipeline()
+pipeline = TrainingPipeline()
+pipeline.run_pipeline()
 
 import boto3
-s3 = boto3.client('s3')
-response = s3.list_buckets()
-print(response)
+
+# Use default profile (same as AWS CLI)
+#session = boto3.Session()
+#s3 = session.client('s3')
+
+#response = s3.list_buckets()
+#print("Buckets:", [bucket['Name'] for bucket in response['Buckets']])
+
+
 
 
 

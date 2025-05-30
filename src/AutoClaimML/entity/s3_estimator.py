@@ -2,6 +2,7 @@
 
 import sys
 from pandas import DataFrame
+import boto3
 
 from AutoClaimML.entity.estimator import MyModel
 from AutoClaimML.cloud_storage.aws_storage import SimpleStorageService
@@ -61,14 +62,11 @@ class Proj1Estimator:
             raise CustomException(e, sys)
         
     def save_model(self, from_file: str, remove: bool = False) -> None:
-        """
-        Saves a model file to S3.
-
-        Args:
-            from_file (str): Local path to the model file.
-            remove (bool): If True, removes the local file after upload.
-        """
         try:
+            sts = boto3.client('sts')
+            identity = sts.get_caller_identity()
+            print(f"[DEBUG] AWS Identity before upload: {identity['Arn']}")
+
             self.s3.upload_file(
                 from_filename=from_file,
                 to_filename=self.model_path,
