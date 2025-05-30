@@ -3,7 +3,7 @@ name: Deploy Application Docker Image to EC2 instance
 on:
   push:
     branches: [main]
-'''
+
 jobs:
   Continuous-Integration:
     runs-on: ubuntu-latest
@@ -66,4 +66,3 @@ jobs:
             -e MONGODB_URL="${{ secrets.MONGODB_URL }}" \
             -p 5000:5000 \
             ${{ steps.login-ecr.outputs.registry }}/${{ secrets.ECR_REPO }}:latest
-''''
