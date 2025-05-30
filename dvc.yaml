@@ -2,32 +2,66 @@ stages:
   data_ingestion:
     cmd: python main.py --stage data_ingestion
     deps:
+      - main.py
       - src/AutoClaimML/components/data_ingestion.py
       - src/AutoClaimML/pipeline/training_pipeline.py
+      - src/AutoClaimML/configuration/configuration.py
     outs:
-      - artifacts/data_ingestion/
+      - artifacts/data_ingestion/feature_store/data.csv
+      - artifacts/data_ingestion/ingested/test.csv
+      - artifacts/data_ingestion/ingested/train.csv
+      - artifacts/data_ingestion/artifact.pkl
 
   data_validation:
     cmd: python main.py --stage data_validation
     deps:
+      - main.py
+      - artifacts/data_ingestion/artifact.pkl
       - src/AutoClaimML/components/data_validation.py
-      - artifacts/data_ingestion/
     outs:
-      - artifacts/data_validation/
+      - artifacts/data_validation/artifact.pkl
+      - artifacts/data_validation/report.yaml
   data_transformation:
     cmd: python main.py --stage data_transformation
     deps:
+      - main.py
+      - artifacts/data_ingestion/artifact.pkl
+      - artifacts/data_validation/artifact.pkl
       - src/AutoClaimML/components/data_transformation.py
-      - artifacts/data_ingestion/
-      - artifacts/data_validation/
     outs:
-      - artifacts/data_transformation/
+       - artifacts/data_transformation/artifact.pkl
+       - artifacts/data_transformation/transformed/train.npy
+       - artifacts/data_transformation/transformed/test.npy
+       - artifacts/data_transformation/transformed_object/preprocessing.pkl
   model_trainer:
     cmd: python main.py --stage model_trainer
     deps:
+      - main.py
       - src/AutoClaimML/components/model_trainer.py
-      - artifacts/data_transformation/
+      - artifacts/data_transformation/artifact.pkl
     outs:
-      - artifacts/model_trainer/
+       - artifacts/model_trainer/trained_model/model.pkl
+       - artifacts/model_trainer/artifact.pkl
+  model_evaluation:
+    cmd: python main.py --stage model_evaluation
+    deps:
+      - main.py
+      - artifacts/data_ingestion/artifact.pkl
+      - artifacts/model_trainer/artifact.pkl
+      - src/AutoClaimML/components/model_evaluation.py
+    outs:
+      - artifacts/model_evaluation/artifact.pkl
+  model_pusher:
+    cmd: python main.py --stage model_pusher
+    deps:
+      - main.py
+      - artifacts/model_evaluation/artifact.pkl
+      - src/AutoClaimML/components/model_pusher.py
+
+
+
+
+
+      
  
 
