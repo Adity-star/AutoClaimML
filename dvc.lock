@@ -35,3 +35,26 @@ stages:
       md5: 4ba551774453953856cf8ab1f9f099bf.dir
       size: 55
       nfiles: 1
+  data_transformation:
+    cmd: python main.py --stage data_transformation
+    deps:
+    - path: artifacts/data_ingestion/
+      hash: md5
+      md5: df296c773f6a13a5f0e86294d4eb0e0d.dir
+      size: 43627076
+      nfiles: 3
+    - path: artifacts/data_validation/
+      hash: md5
+      md5: 4ba551774453953856cf8ab1f9f099bf.dir
+      size: 55
+      nfiles: 1
+    - path: src/AutoClaimML/components/data_transformation.py
+      hash: md5
+      md5: dbb24740ed092b51c621df71aa6a29ce
+      size: 11975
+    outs:
+    - path: artifacts/data_transformation/
+      hash: md5
+      md5: 83b4a98c6f1b979169c9c74911e0367e.dir
+      size: 48040158
+      nfiles: 3
