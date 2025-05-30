@@ -2,11 +2,13 @@
 
 import os
 import boto3
+
 from io import StringIO
 from typing import Union, List
 import sys
 import pickle
 from pathlib import Path
+from dotenv import load_dotenv
 
 from pandas import DataFrame, read_csv
 from mypy_boto3_s3.service_resource import Bucket
@@ -15,6 +17,8 @@ from botocore.exceptions import ClientError
 from AutoClaimML.logger import logging
 from AutoClaimML.configuration.aws_connection import S3Client
 from AutoClaimML.exception import CustomException
+
+load_dotenv()
 
 class SimpleStorageService:
     """
