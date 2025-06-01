@@ -57,7 +57,6 @@ pip list  # Confirm all packages are installed
 - Build the ingestion logic in `components/data_ingestion.py`.
 - Run `demo.py` after setting the `MONGODB_URL` in your environment.
 
----
 
 ### 4. Set Environment Variables
 
@@ -106,6 +105,8 @@ dvc push
   - **Data Transformation** (include `estimator.py`)
 
   - **Model Training** (extend `estimator.py`)
+ 
+  ---
  
 # ☁️ AWS Setup for Model Registry
   
