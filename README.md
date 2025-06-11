@@ -65,6 +65,20 @@ pip list  # Confirm all packages are installed
 export MONGODB_URL="mongodb+srv://<username>:<password>@cluster..."
 ```
 ---
+
+# 🔄 Data Validation, Transformation & Model Training
+
+- Update `utils/main_utils.py` and `config/schema.yaml` for validation.
+
+- Build the following components similar to data ingestion:
+
+  - **Data Validation**
+
+  - **Data Transformation** (include `estimator.py`)
+
+  - **Model Training** (extend `estimator.py`)
+  ---
+  
 ## 📊 Experiment & Data Versioning with DVC and MLflow
 ### DVC (Data Version Control)
 - Track datasets, models, and pipeline outputs with DVC to ensure reproducibility.
@@ -92,19 +106,7 @@ dvc push
 - Log experiments, parameters, metrics, and artifacts with MLflow.
 - Example usage inside `components/model_trainer.py`
 - Use MLflow UI to track and compare your runs.
----
 
-# 🔄 Data Validation, Transformation & Model Training
-
-- Update `utils/main_utils.py` and `config/schema.yaml` for validation.
-
-- Build the following components similar to data ingestion:
-
-  - **Data Validation**
-
-  - **Data Transformation** (include `estimator.py`)
-
-  - **Model Training** (extend `estimator.py`)
  
   ---
  
