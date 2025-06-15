@@ -2,6 +2,9 @@
 
 This project is an end-to-end ML pipeline integrating **MongoDB**, **AWS (S3, EC2, IAM, ECR)**, **Docker**,**DVC**,**Mlflow**, **CI/CD with GitHub Actions**, and **FastAPI/Flask app** deployment. It automates data ingestion, validation, transformation, model training, evaluation, and deployment using robust engineering practices.
 
+![image](https://github.com/user-attachments/assets/3e1a92d3-d9de-4eda-b49c-a0e66fcdb0b5)
+
+
 ---
 
 ## 🛠️ Project Setup Instructions
