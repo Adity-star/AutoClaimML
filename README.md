@@ -187,6 +187,8 @@ flowchart LR
 - Automate retraining on new data
 - Convert API into AWS Lambda microservice
 
+---
+
 ### Author
 @Aditya Akuskar
 - [Linkedin](https://www.linkedin.com/in/aditya-a-27b43533a/)
